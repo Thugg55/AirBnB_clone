@@ -38,6 +38,7 @@ class BaseModel:
         obj_dict["__class__"] = self.__class__.__name__
         obj_dict["created_at"] = self.created_at.strftime(date_format)
         obj_dict["updated_at"] = self.updated_at.strftime(date_format)
+        obj_dict.update(self.__dict__)
         return obj_dict
 
     def __str__(self):
