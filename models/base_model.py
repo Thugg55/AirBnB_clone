@@ -29,7 +29,8 @@ class BaseModel:
 
     def save(self):
         """ function to save the object instance """
-        pass
+         self.updated_at = datetime.datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """ converts the object attributes to dictionary """
@@ -43,5 +44,4 @@ class BaseModel:
 
     def __str__(self):
         """ returns the dict representation of the class """
-        name = self.__class__.__name__
-        return "[{}] ({}) {}".format(name, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self._class_._name, self.id, self.__dict__)
