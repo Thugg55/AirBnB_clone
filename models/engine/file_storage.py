@@ -5,12 +5,11 @@ File_storage module
 """
 
 import json
-from models.base_model import BaseModel
+from base_model import BaseModel
 
 
-class Filestorage:
+class FileStorage:
     """
-    
     FileStorage - sterializes instances to a JSON file
                 and deserializes JSON file to instances
     Args:
@@ -35,4 +34,14 @@ class Filestorage:
     def save(self, obj):
         """ saves the instance of an object to a file """
         with open(self.__file_path, "w") as f:
-            json.dump(self.__object, f)
+            serialized_objs = {key: value.to_dict() for key,
+                                  value in self.__objects.items()}
+            json.dump(serialized_objs, f)
+
+    def reload(self, obj):
+        """
+        loads json objects from the file and returns the class instance
+        """
+        with open(self.__file_path, "r") as f:
+            obj_dict = json.load(f.read())
+            pass

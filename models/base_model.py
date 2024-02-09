@@ -16,11 +16,15 @@ class BaseModel:
                         every time you change your object
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs)
         """ initialises the BaseModel class parameters """
-        if args:
-            pass
-        elif kwargs:
+        date_format = "%Y-%m-%dT%H:%M:%S.%f"
+        if kwargs:
+            for k, v in kwargs.items():
+                if k == "created_at":
+                    # work in progress
+
+        elif args:
             pass
         else:
             self.id = str(uuid.uuid4())
@@ -29,7 +33,7 @@ class BaseModel:
 
     def save(self):
         """ function to save the object instance """
-         self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
@@ -44,4 +48,5 @@ class BaseModel:
 
     def __str__(self):
         """ returns the dict representation of the class """
-        return "[{}] ({}) {}".format(self._class_._name, self.id, self.__dict__)
+        name = self.__class__.__name__
+        return "[{}] ({}) {}".format(name, self.id, self.__dict__)
