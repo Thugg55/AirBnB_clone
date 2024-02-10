@@ -17,23 +17,21 @@ class FileStorage:
         __objects: a dict to store the objects
     """
 
-    def __init__(self):
-        """ initializes the class attributes """
-        self.__file_path = 'file.json'
-        self.__objects = {}
+    __file_path = 'file.json'
+    __objects = {}
 
     def all(self):
         """ returns all the objects """
         return self.__objects
 
-    def commit(self, obj):
+    def new(self, obj):
         """ stages an object for saving it to a file """
         name = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[name] = obj
 
     def save(self):
         """ saves the instance of an object to a file """
-        with open(self.__file_path, "w") as f:
+        with open(self.__file_path, "w+") as f:
             serialized_objs = {key: value.to_dict() for key,
                                   value in self.__objects.items()}
             json.dump(serialized_objs, f)
@@ -42,10 +40,15 @@ class FileStorage:
         """
         loads json objects from the file and returns the class instance
         """
+        allowed_class = {
+                "BaseModel" : BaseModel
+                }
         try:
             with open(self.__file_path, "r") as f:
                 obj_dict = json.loads(f.read())
-                print(obj_dict)
+                FileStorage.__objects = {
+                key: allowed_class[key.split('.')[0]](**value)
+                for key, value in obj_dict.items()}
         except:
             pass
 
