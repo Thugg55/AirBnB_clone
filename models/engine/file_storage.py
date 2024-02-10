@@ -34,7 +34,7 @@ class FileStorage:
         """ saves the instance of an object to a file """
         with open(self.__file_path, "w+") as f:
             serialized_objs = {key: value.to_dict() for key,
-                                  value in self.__objects.items()}
+                               value in self.__objects.items()}
             json.dump(serialized_objs, f)
 
     def reload(self):
@@ -42,16 +42,20 @@ class FileStorage:
         loads json objects from the file and returns the class instance
         """
         allowed_class = {
-                "BaseModel" : BaseModel,
-                "User" : User
+                "BaseModel": BaseModel,
+                "User": User,
+                "State": State,
+                "City": City,
+                "Place": Place,
+                "Amenity": Amenity,
+                "Review": Review
                 }
         try:
             with open(self.__file_path, "r") as f:
                 obj_dict = json.loads(f.read())
                 FileStorage.__objects = {
-                key: allowed_class[key.split('.')[0]](**value)
-                for key, value in obj_dict.items()}
-        except:
+                                         key: allowed_class[key.split('.')[0]]
+                                         (**value) for key, value in
+                                         obj_dict.items()}
+        except Exception:
             pass
-
-            

@@ -3,6 +3,7 @@
 
 from models.base_model import BaseModel
 
+
 class City(BaseModel):
     """
     City - Defines the City class that inherits from the BaseModel class
