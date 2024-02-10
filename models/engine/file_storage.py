@@ -6,6 +6,7 @@ File_storage module
 
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -41,7 +42,8 @@ class FileStorage:
         loads json objects from the file and returns the class instance
         """
         allowed_class = {
-                "BaseModel" : BaseModel
+                "BaseModel" : BaseModel,
+                "User" : User
                 }
         try:
             with open(self.__file_path, "r") as f:
