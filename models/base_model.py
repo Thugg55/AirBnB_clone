@@ -36,15 +36,13 @@ class BaseModel:
 
     def save(self):
         """ function to save the object instance """
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.utcnow()
         models.storage.save()
 
     def to_dict(self):
         """ converts the object attributes to dictionary """
-        obj_dict = {}
-        date_format = "%Y-%m-%dT%H:%M:%S.%f"
+        obj_dict = self.__dict__.copy()
         obj_dict["__class__"] = self.__class__.__name__
-        obj_dict.update(self.__dict__)
         obj_dict["created_at"] = self.created_at.isoformat()
         obj_dict["updated_at"] = self.updated_at.isoformat()
         return obj_dict
