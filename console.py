@@ -23,6 +23,13 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
+    def emptyline(self):
+        """
+        don't do anything for an
+        empty line 
+        """
+        pass
+
 
     def do_create(self, line):
         """
@@ -75,24 +82,3 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
-        def do_destroy(self, line):
-            """
-            deletes an instance based on the class name and id
-
-            if the class name is missing, print "** class name missing **"
-
-            if the class name doesn't exist, print "** class doesnt't exist **"
-
-            if the id missing, print "** instance id missing **"
-
-            if the instance of the class name doesn't exist for the id,
-            print "** no instance found **"
-            """
-            if len(line) == 0:
-            print("** class name missing **")
-            else:
-            line = line.split()
-            if line[0] in models.class_dict:
-                try:
-                    obj_id = line[0] + '.' + line[1]
-                except IndexError:
