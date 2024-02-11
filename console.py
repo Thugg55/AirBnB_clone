@@ -4,7 +4,9 @@ A console.py program that contains the
 entry point of the command interpreter.
 """
 import cmd
-
+import re
+from datetime import datetime
+import models
 
 class HBNBCommand(cmd.Cmd):
     """cmd console class """
