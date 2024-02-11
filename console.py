@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""a console program"""
+"""a console program"""
 
 import cmd
 import re
