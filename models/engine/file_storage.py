@@ -23,7 +23,6 @@ class FileStorage:
         __objects: a dict to store the objects
     """
 
-
     __file_path = "file.json"
     __objects = {}
 
