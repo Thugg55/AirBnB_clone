@@ -23,21 +23,21 @@ class FileStorage:
         __objects: a dict to store the objects
     """
 
-    __file_path = 'file.json'
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
         """ returns all the objects """
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """ stages an object for saving it to a file """
         name = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[name] = obj
+        FileStorage.__objects[name] = obj
 
     def save(self):
         """ saves the instance of an object to a file """
-        with open(self.__file_path, "w+") as f:
+        with open(FileStorage.__file_path, "w") as f:
             serialized_objs = {key: value.to_dict() for key,
                                value in self.__objects.items()}
             json.dump(serialized_objs, f)
@@ -56,7 +56,7 @@ class FileStorage:
                 "Review": Review
                 }
         try:
-            with open(self.__file_path, "r") as f:
+            with open(FileStorage.__file_path, "r") as f:
                 obj_dict = json.loads(f.read())
                 FileStorage.__objects = {
                                          key: allowed_class[key.split('.')[0]]
